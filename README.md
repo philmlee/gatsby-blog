@@ -4,10 +4,16 @@
   </a>
 </p>
 <h1 align="center">
-  Gatsby minimal starter
+  Get to know Gatsby!
 </h1>
 
-## 🚀 Quick start
+## Welcome!
+In this session, we'll go over some quick benefits of Gatsby and how it works.  It's not intented to be a tutorial but to provide an overview of the framework and an example.
+
+The repo itself is a Gatsby project that includes a blog about what Gatsby is! 
+
+
+## 🚀 Quick start for your own Gatsby project
 
 1.  **Create a Gatsby site.**
 
