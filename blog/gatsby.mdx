@@ -1,0 +1,93 @@
+---
+title: "Gatsby?"
+date: "2022-02-27"
+---
+![Alt Text](https://media.giphy.com/media/u4CY9BW4umAfu/giphy.gif)
+
+## What is Gatsby?
+
+Gatsby is an open-source static website generator (SSG) that is based on the frontend development framework React and makes use of Webpack and GraphQL technology. 
+
+## So is Gatsby framework on top of another framework!?
+
+Sorta!  React is a library that is meant to provide a certain set of core functionality for developers to leverage. It is intended to be lightweight and broadly applicable. GatsbyJS, on the other hand, is a static progressive web app (PWA) generator that offers code and data splitting out of the box.
+
+To boost performance, GatsbyJS loads only critical HTML, CSS, JavaScript, and other data. Once loaded, it prefetches resources for other pages you might navigate to. This way, your site loads as fast as possible and user interactions feel seamless.  Gatsby does not render anything on the server when a request is made. This is all done at build time of the application.
+
+## What makes Gatsby special?
+![Alt Text](https://media.giphy.com/media/3og0IExSrnfW2kUaaI/giphy.gif)
+
+Gatsby has some great features that differentiate it from other static site generators.
+
+First and foremost, Gatsby leverages React, so it is a great choice for those who are comfortable with and love it.
+
+Gatsby pairs really well with platforms like Netlify, and you can easily configure your site to build and deploy every time you commit and push to GitHub.
+
+Gatsby also comes with a great ecosystem of plugins that serve various needs. These plugins can help you source data from CMSs like WordPress or Contentful, help you integrate with tools like Algolia, and manage your images by lazy-loading and optimizing them.
+
+Gatsby also provides a wealth of APIs that make the development of static sites much easier — for example, the createPage API that makes it really easy to transform markdown files into static pages with a template at build time.
+
+Finally, Gatsby has a bunch of great components that simplify things like routing, linking, and handling images, which are not included in the core React library.
+
+## Gatsby + GraphQL? 
+
+Gatsby generates static files but what makes it powerful is also the ability, it has the ability to use data that comes from third-party APIs, local markdown (like in the example you're looking at) or json files.  You can still use local json files directly but in some cases may have some limitations.
+Gatsby uses GraphQL as a data management layer to overcome some of these limitations. 
+
+## Routes
+Part of what makes Gatsby sites so fast is that a lot of the work is done at build time and the running site is static content served from a CDN. During the build process, Gatsby creates paths to access pages, handling routing for you. Creating navigation for a Gatsby app requires an understanding of what those paths are and how they’re generated.
+
+Routes can be created in three ways:
+
+- By creating React components in src/pages (shown here in the example app)
+
+Example: 
+
+```
+.
+├── gatsby-config.js
+├── package.json
+└── src
+    ├── html.js
+    ├── pages
+    │   ├── index.js
+    │   └── posts
+    │       ├── 01-01-2017
+    │       │   └── index.md
+    │       ├── 01-02-2017
+    │       │   └── index.md
+    │       └── 01-03-2017
+    │           └── index.md
+    ├── templates
+        └── post.js
+ ```
+
+- By using the File System Route API to programmatically create pages from GraphQL and to create client-only routes.
+- By implementing the API createPages in your site’s gatsby-node.js. (how developer.redoxengine.com site does it)
+
+Example: 
+
+```
+exports.createPages = async function ({ actions, graphql }) {
+  const { data } = await graphql(`
+    query {
+      allMarkdownRemark {
+        nodes {
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  `)
+  data.allMarkdownRemark.forEach(node => {
+    const slug = node.fields.slug
+    actions.createPage({
+      path: slug,
+      component: require.resolve(`./src/templates/blog-post.js`),
+      context: { slug: slug },
+    })
+  })
+}
+```
+For more info on Gatsby, please visit: https://www.gatsbyjs.com/docs/
